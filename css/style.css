@@ -1,0 +1,257 @@
+/* style.css */
+
+:root {
+  --green: #006400;
+  --yellow: #FFD700;
+}
+
+body {
+  font-family:  sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f0f0f0;
+  overflow-x: hidden;
+}
+nav{
+    background-color: var(--green);
+}
+.section-padding {
+  padding: 60px 0;
+}
+
+.section-title {
+  text-align: center;
+  color: var(--green);
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.section-subtitle {
+  font-size: 1.5rem;
+  color: var(--green);
+  margin-bottom: 20px;
+}
+
+/* Buttons */
+.custom-btn {
+  background-color: var(--yellow);
+  color: var(--green);
+  font-weight: bold;
+  border: none;
+}
+
+.custom-btn:hover {
+  background-color: #e6c200;
+}
+
+/* Footer */
+.custom-footer {
+  background-color: var(--green);
+}
+
+/* FAQ List */
+.faq-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.faq-list li {
+  margin-bottom: 10px;
+}
+
+.faq-list a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.faq-list a:hover {
+  color: var(--yellow);
+  text-decoration: underline;
+}
+
+/* Parallax Effect */
+.parallax-section {
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.fade-parallax {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 1s ease;
+}
+
+.fade-parallax.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Counter Animation */
+.counter {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--green);
+}
+
+/* Bubble Circles for Banner */
+.circle-green,
+.circle-yellow {
+  position: absolute;
+  border-radius: 50%;
+  z-index: 0;
+  opacity: 0.15;
+}
+
+.circle-green {
+  width: 400px;
+  height: 400px;
+  background-color: var(--green);
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+}
+
+.circle-yellow {
+  width: 500px;
+  height: 500px;
+  background-color: var(--yellow);
+  bottom: 0;
+  right: 0;
+  transform: translate(50%, 50%);
+}
+
+/* Contact form fields */
+form input,
+form textarea {
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+form input:focus,
+form textarea:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 0.2rem rgba(0, 100, 0, 0.1);
+  outline: none;
+}
+
+/* Image styling */
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+} 
+.navbar .nav-link.active {
+  color: var(--yellow) !important;
+  font-weight: bold;
+}
+/* Timeline Container */
+.timeline {
+  position: relative;
+  padding-left: 30px;
+  border-left: 3px solid var(--green); /* vertical line */
+}
+
+/* Each item */
+.timeline li {
+  position: relative;
+  margin-bottom: 30px;
+  padding-left: 10px;
+}
+
+/* Optional: add a dot (remove if you want only the line) */
+.timeline li::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: -11px;
+  width: 12px;
+  height: 12px;
+  background-color: var(--green);
+  border-radius: 50%;
+}
+/* Timeline Base */
+.timeline-container {
+  position: relative;
+  margin-left: 40px;
+  padding-left: 30px;
+  border-left: 3px solid var(--green);
+}
+
+/* Each item */
+.timeline-item {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+/* Dot on the line */
+.timeline-dot {
+  position: absolute;
+  left: -11px;
+  top: 6px;
+  width: 14px;
+  height: 14px;
+  background-color: var(--green);
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+/* Content to the right of the line */
+.timeline-content h5 {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+/* Timeline Layout */
+.timeline {
+  position: relative;
+  margin-left: 20px;
+  border-left: 3px solid var(--green);
+  padding-left: 30px;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.timeline-icon {
+  position: absolute;
+  left: -35px;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  background-color: var(--green);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.timeline-content h4 {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.timeline-content p {
+  margin: 0;
+  color: #6c757d;
+}
+.timeline-content {
+  margin-left: 60px; 
+}
+
+/* Mobile Adjustments */
+@media (max-width: 576px) {
+  .timeline {
+    padding-left: 20px;
+    margin-left: 10px;
+  }
+  .timeline-icon {
+    left: -30px;
+  }
+}
+
