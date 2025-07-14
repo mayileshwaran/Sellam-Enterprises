@@ -245,6 +245,11 @@ form textarea:focus {
 }
 
 /* Mobile Adjustments */
+@media (max-width: 700px) {
+     .client{
+    width: 50%;
+  }
+}
 @media (max-width: 576px) {
   .timeline {
     padding-left: 20px;
@@ -253,5 +258,6 @@ form textarea:focus {
   .timeline-icon {
     left: -30px;
   }
+ 
 }
 
