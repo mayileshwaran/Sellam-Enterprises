@@ -47,6 +47,30 @@ function animateCounter(counter) {
 }
 
 // Observe #know-us section for counter animation
+function animateCounter(counter) {
+  const target = +counter.getAttribute('data-count');
+  const duration = 700; 
+  const frameRate = 30; // how many ms between updates
+  const totalSteps = Math.ceil(duration / frameRate);
+  let currentStep = 0;
+
+  const update = () => {
+    currentStep++;
+    const progress = Math.min(currentStep / totalSteps, 1);
+    const value = Math.floor(progress * target);
+    counter.innerText = value;
+
+    if (progress < 1) {
+      setTimeout(update, frameRate);
+    } else {
+      counter.innerText = target + "+"; // Final value with +
+    }
+  };
+
+  update();
+}
+
+// Scroll trigger
 const knowUsSection = document.getElementById('know-us');
 if (knowUsSection) {
   const observer = new IntersectionObserver((entries, observer) => {
@@ -64,6 +88,7 @@ if (knowUsSection) {
   observer.observe(knowUsSection);
 }
 
+
 // Parallax fade-in effect on scroll
 const fadeElements = document.querySelectorAll('.fade-parallax');
 const fadeObserver = new IntersectionObserver((entries) => {
@@ -77,3 +102,35 @@ const fadeObserver = new IntersectionObserver((entries) => {
 });
 
 fadeElements.forEach(el => fadeObserver.observe(el));
+
+(() => {
+  const form = document.querySelector('.needs-validation');
+  const name = document.getElementById('name');
+  const message = document.getElementById('message');
+
+  const validateField = (input, pattern) => {
+    const value = input.value.trim();
+    if (pattern.test(value)) {
+      input.classList.remove('is-invalid');
+      input.classList.add('is-valid');
+    } else {
+      input.classList.remove('is-valid');
+      input.classList.add('is-invalid');
+    }
+  };
+
+  form.addEventListener('submit', (e) => {
+    const namePattern = /^[a-zA-Z ]{2,}$/;
+    const messagePattern = /^[a-zA-Z0-9 .,]{10,}$/;
+
+    validateField(name, namePattern);
+    validateField(message, messagePattern);
+
+    form.classList.add('was-validated');
+
+    if (!form.checkValidity() || !namePattern.test(name.value.trim()) || !messagePattern.test(message.value.trim())) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  });
+})();
