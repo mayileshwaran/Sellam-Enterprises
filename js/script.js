@@ -103,34 +103,77 @@ const fadeObserver = new IntersectionObserver((entries) => {
 
 fadeElements.forEach(el => fadeObserver.observe(el));
 
-(() => {
-  const form = document.querySelector('.needs-validation');
-  const name = document.getElementById('name');
-  const message = document.getElementById('message');
+const form = document.getElementById('contactForm');
 
-  const validateField = (input, pattern) => {
+form.addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  const nameInput = document.getElementById('name');
+  const emailInput = document.getElementById('email');
+  const phoneInput = document.getElementById('phone');
+  const messageInput = document.getElementById('message');
+
+  const namePattern = /^[a-zA-Z ]{2,}$/;
+  const emailPattern = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+  const phonePattern = /^[6-9][0-9]{9}$/;
+  const messagePattern = /^[a-zA-Z0-9 .,]{10,}$/;
+
+  document.querySelectorAll('.text-danger[data-error]').forEach(el => el.remove());
+
+  let isValid = true;
+
+  const showError = (input, message, pattern) => {
     const value = input.value.trim();
-    if (pattern.test(value)) {
-      input.classList.remove('is-invalid');
-      input.classList.add('is-valid');
+    const existingError = input.parentNode.querySelector('[data-error]');
+    if (!pattern.test(value)) {
+      if (!existingError) {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'text-danger mt-1';
+        errorDiv.textContent = message;
+        errorDiv.setAttribute('data-error', 'true');
+        input.parentNode.appendChild(errorDiv);
+      }
+      isValid = false;
     } else {
-      input.classList.remove('is-valid');
-      input.classList.add('is-invalid');
+      if (existingError) existingError.remove();
     }
   };
 
-  form.addEventListener('submit', (e) => {
-    const namePattern = /^[a-zA-Z ]{2,}$/;
-    const messagePattern = /^[a-zA-Z0-9 .,]{10,}$/;
+  showError(nameInput, 'Name must be at least 2 characters and only letters/spaces.', namePattern);
+  showError(emailInput, 'Enter a valid email address.', emailPattern);
+  showError(phoneInput, 'Enter a 10-digit number starting with 6–9.', phonePattern);
+  showError(messageInput, 'Min 10 characters. Only letters, numbers, ., , allowed.', messagePattern);
 
-    validateField(name, namePattern);
-    validateField(message, messagePattern);
+  if (isValid) {
+    const alertBox = document.getElementById('alertBox');
+    alertBox.innerHTML = '<div class="alert alert-success mt-4">✅ Form submitted successfully (front-end only).</div>';
+    form.reset();
+  }
+});
 
-    form.classList.add('was-validated');
+// Live validation: show/remove errors as user types
+const liveFields = [
+  { id: 'name', pattern: /^[a-zA-Z ]{2,}$/, message: 'Name must be at least 2 characters and only letters/spaces.' },
+  { id: 'email', pattern: /^[^@\s]+@[^@\s]+\.[^@\s]+$/, message: 'Enter a valid email address.' },
+  { id: 'phone', pattern: /^[6-9][0-9]{9}$/, message: 'Enter a 10-digit number starting with 6–9.' },
+  { id: 'message', pattern: /^[a-zA-Z0-9 .,]{10,}$/, message: 'Min 10 characters. Only letters, numbers, ., , allowed.' }
+];
 
-    if (!form.checkValidity() || !namePattern.test(name.value.trim()) || !messagePattern.test(message.value.trim())) {
-      e.preventDefault();
-      e.stopPropagation();
+liveFields.forEach(({ id, pattern, message }) => {
+  const input = document.getElementById(id);
+  input.addEventListener('input', () => {
+    const value = input.value.trim();
+    const existingError = input.parentNode.querySelector('[data-error]');
+    if (!pattern.test(value)) {
+      if (!existingError) {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'text-danger mt-1';
+        errorDiv.textContent = message;
+        errorDiv.setAttribute('data-error', 'true');
+        input.parentNode.appendChild(errorDiv);
+      }
+    } else {
+      if (existingError) existingError.remove();
     }
   });
-})();
+});
